@@ -2,7 +2,9 @@ package com.bridgelabz.employeepayrollapp.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +14,13 @@ import lombok.Setter;
 @Table(name = "employees")
 public class EmployeeEntity {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "This field can't be null")
+    @NotBlank(message = "Name is required and cannot be empty")
+    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$", message = "Employee name not valid")
     private String name;
 
     private Double salary;
