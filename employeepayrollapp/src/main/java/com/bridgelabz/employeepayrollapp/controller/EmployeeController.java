@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
@@ -40,10 +41,11 @@ public class EmployeeController {
         Optional<EmployeeEntity> employee = employeeService.getEmployeeById(id);
         if(employee.isPresent()){
             log.info("Employee found: {}", employee.get());
+            return employee;
         }else {
             log.warn("Employee with id {} not found", id);
+            throw new NoSuchElementException("For id " + id.toString());
         }
-        return employee;
     }
 
     @PostMapping("/add")    //add new employee
